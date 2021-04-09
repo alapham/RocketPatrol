@@ -13,7 +13,7 @@ class Play extends Phaser.Scene {
             0,0,640,480, 'starfield'
         ).setOrigin(0,0);
 
-        //green UI background
+        //green UI rectangle
         this.add.rectangle(0,
             borderUISize + borderPadding,
             game.config.width,
@@ -26,7 +26,9 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
+    }
 
-
+    update() {
+        this.starfield.tilePositionX -=4;
     }
 }
