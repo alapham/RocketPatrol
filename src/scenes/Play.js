@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.image("starfield", "assets/starfield.png");
         this.load.image('rocket', 'assets/rocket.png');
+        this.load.image('spaceship', 'assets/spaceship.png');
     }
 
     create() {
@@ -22,6 +23,27 @@ class Play extends Phaser.Scene {
             );
             // can add here too to add to scene
             //this.add.existing(this.p1Rocket);
+
+        this.ship1 = new Ship(
+            this,
+            100,
+            200,
+            'spaceship'
+            );
+
+        this.ship2 = new Ship(
+            this,
+            300,
+            240,
+            'spaceship'
+            );
+
+        this.ship3 = new Ship(
+            this,
+            300,
+            300,
+            'spaceship'
+            );
 
         //green UI rectangle
         this.add.rectangle(0,
@@ -46,5 +68,23 @@ class Play extends Phaser.Scene {
     update() {
         this.starfield.tilePositionX -=4;
         this.p1Rocket.update();
+        this.ship1.update();
+        this.ship2.update();
+        this.ship2.update();
+
+        this.checkCollision(this.p1Rocket, this.ship1);
+        this.checkCollision(this.p1Rocket, this.ship2);
+        this.checkCollision(this.p1Rocket, this.ship3);
+    }
+
+    checkCollision(ship) {
+        if( rocket.x > ship.x &&
+            rocket.x < ship.x + width &&
+            rocket.y > ship.y &&
+            rocket.y < ship.y + ship.height) {
+                ship.alpha = 0;
+                rocket.reset();
+                ship.reset();
+            }
     }
 }
