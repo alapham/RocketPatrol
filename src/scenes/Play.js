@@ -40,7 +40,7 @@ class Play extends Phaser.Scene {
 
         this.ship3 = new Ship(
             this,
-            300,
+            380,
             300,
             'spaceship'
             );
@@ -68,18 +68,19 @@ class Play extends Phaser.Scene {
     update() {
         this.starfield.tilePositionX -=4;
         this.p1Rocket.update();
+
         this.ship1.update();
         this.ship2.update();
-        this.ship2.update();
+        this.ship3.update();
 
         this.checkCollision(this.p1Rocket, this.ship1);
         this.checkCollision(this.p1Rocket, this.ship2);
         this.checkCollision(this.p1Rocket, this.ship3);
     }
 
-    checkCollision(ship) {
+    checkCollision(rocket, ship) {
         if( rocket.x > ship.x &&
-            rocket.x < ship.x + width &&
+            rocket.x < ship.x + ship.width &&
             rocket.y > ship.y &&
             rocket.y < ship.y + ship.height) {
                 ship.alpha = 0;
