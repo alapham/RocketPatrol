@@ -96,21 +96,27 @@ class Play extends Phaser.Scene {
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
     
+        //GAME OVER flag
+        this.gameOver = false;
+
         //game timer
         scoreConfig.fixedWidth = 0;
-        this.clock = this.time.delayedCall(60000, () => {
+        this.clock = this.time.delayedCall(10000, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, '(F)ire to Restart', scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart', scoreConfig).setOrigin(0.5);
+            this.gameOver = true;
         }, null, this);
     }
 
     update() {
         this.starfield.tilePositionX -=4;
-        this.p1Rocket.update();
-
-        this.ship1.update();
-        this.ship2.update();
-        this.ship3.update();
+        
+        if(!this.gameOver) {
+            this.p1Rocket.update();
+            this.ship1.update();
+            this.ship2.update();
+            this.ship3.update();
+        }
 
         if(this.checkCollision(this.p1Rocket, this.ship3)) {
             this.p1Rocket.reset();
